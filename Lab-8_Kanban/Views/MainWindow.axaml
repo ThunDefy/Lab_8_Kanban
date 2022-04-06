@@ -52,9 +52,9 @@
 					<Expander Header="{Binding Title}">
 						<Grid RowDefinitions="100,200,200,*,*">
 							<TextBox Grid.Row="0" Watermark="Название" Text="{Binding Title}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
-							<TextBox Grid.Row="1"  Watermark="Описание" MinHeight="200" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+							<TextBox Grid.Row="1"  TextWrapping="Wrap" Watermark="Описание" MinHeight="200" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
 							<Image Grid.Row="2" Source="{Binding Img}"/>
-							<Button Grid.Row="3" Name="AddImg2"  Content="Добавить изображение" HorizontalAlignment="Center"/>
+							<Button Grid.Row="3" Name="AddImg2" Command="{Binding $parent[Window].DataContext.AddImg}" CommandParameter="{Binding}" Content="Добавить изображение" HorizontalAlignment="Center"/>
 							<Button Grid.Row="4" Name="Delete2" Command="{Binding $parent[Window].DataContext.Delete}" CommandParameter="{Binding}" Content="Удалить задачу" HorizontalAlignment="Center" />
 						</Grid>
 					</Expander>
@@ -70,9 +70,9 @@
 					<Expander Header="{Binding Title}">
 						<Grid RowDefinitions="100,200,200,*,*">
 							<TextBox Grid.Row="0" Watermark="Название" Text="{Binding Title}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
-							<TextBox Grid.Row="1" MinHeight="200" Watermark="Описание" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+							<TextBox Grid.Row="1" TextWrapping="Wrap" MinHeight="200" Watermark="Описание" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
 							<Image Grid.Row="2" Source="{Binding Img}"/>
-							<Button Grid.Row="3" Name="AddImg3"  Content="Добавить изображение" HorizontalAlignment="Center"/>
+							<Button Grid.Row="3" Name="AddImg3" Command="{Binding $parent[Window].DataContext.AddImg}" CommandParameter="{Binding}" Content="Добавить изображение" HorizontalAlignment="Center"/>
 							<Button Grid.Row="4" Name="Delete3"  Command="{Binding $parent[Window].DataContext.Delete}" CommandParameter="{Binding}" Content="Удалить задачу" HorizontalAlignment="Center" />
 						</Grid>
 					</Expander>
