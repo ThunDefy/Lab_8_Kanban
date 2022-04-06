@@ -1,0 +1,95 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Lab_8_Kanban.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="1000"
+		Width="800" Height="800"
+        x:Class="Lab_8_Kanban.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Lab_8_Kanban">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Grid RowDefinitions="40,40,*,50" ColumnDefinitions="*,*,*">
+		<DockPanel Background="#40E0D0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" >
+			<Menu  DockPanel.Dock="Top" VerticalAlignment="Top">
+				<MenuItem  Header="_File">
+					<MenuItem Background="#00FA9A" Command="{Binding $parent[Window].DataContext.ClearAll}" Name ="New" Header="_New"/>
+					<MenuItem Name ="Save" Header="_Save"/>
+					<MenuItem Name="Load" Header="_Load"/>
+					<Separator/>
+					<MenuItem Name="Exit" Header="_Exit"/>
+				</MenuItem>
+				<MenuItem  Name="About" Header="_About"/>
+			</Menu>
+		</DockPanel>
+		<TextBlock Grid.Row="1" Grid.Column="0" Background="#FFFAFA" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" >Запланировано</TextBlock>
+		<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+			<ItemsControl Name ="IC1" Grid.Row="2" Grid.Column="0" Items="{Binding ItemsPlanned}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Expander Header="{Binding Title}">
+							<Grid RowDefinitions="100,200,200,*,*">
+								<TextBox Grid.Row="0" Watermark="Название" Text="{Binding Title}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+								<TextBox Grid.Row="1" MinHeight="200" TextWrapping="Wrap" Watermark="Описание" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+								<Image Grid.Row="2" Source="{Binding Img}"/>
+								<Button Grid.Row="3" Name="AddImg"  Command="{Binding $parent[Window].DataContext.AddImg}" CommandParameter="{Binding}" Content="Добавить изображение" HorizontalAlignment="Center"/>
+								<Button Grid.Row="4" Name="Delete1" Command="{Binding $parent[Window].DataContext.Delete}" CommandParameter="{Binding}" Content="Удалить задачу" HorizontalAlignment="Center" />
+							</Grid>
+						</Expander>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+		<TextBlock Grid.Row="1" Grid.Column="1" Background="#FFFAFA" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" >В работе</TextBlock>
+		<ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+		<ItemsControl Grid.Row="2" Grid.Column="1" Items="{Binding ItemsInWork}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Expander Header="{Binding Title}">
+						<Grid RowDefinitions="100,200,200,*,*">
+							<TextBox Grid.Row="0" Watermark="Название" Text="{Binding Title}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+							<TextBox Grid.Row="1"  Watermark="Описание" MinHeight="200" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+							<Image Grid.Row="2" Source="{Binding Img}"/>
+							<Button Grid.Row="3" Name="AddImg2"  Content="Добавить изображение" HorizontalAlignment="Center"/>
+							<Button Grid.Row="4" Name="Delete2" Command="{Binding $parent[Window].DataContext.Delete}" CommandParameter="{Binding}" Content="Удалить задачу" HorizontalAlignment="Center" />
+						</Grid>
+					</Expander>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+		</ScrollViewer>
+		<TextBlock Grid.Row="1" Grid.Column="2" Background="#FFFAFA" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" >Завершено</TextBlock>
+		<ScrollViewer Grid.Row="2" Grid.Column="2" VerticalScrollBarVisibility="Auto">
+			<ItemsControl Grid.Row="2" Grid.Column="2" Items="{Binding ItemsCompleted}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Expander Header="{Binding Title}">
+						<Grid RowDefinitions="100,200,200,*,*">
+							<TextBox Grid.Row="0" Watermark="Название" Text="{Binding Title}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+							<TextBox Grid.Row="1" MinHeight="200" Watermark="Описание" Text="{Binding Notes}" UseFloatingWatermark="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Left"/>
+							<Image Grid.Row="2" Source="{Binding Img}"/>
+							<Button Grid.Row="3" Name="AddImg3"  Content="Добавить изображение" HorizontalAlignment="Center"/>
+							<Button Grid.Row="4" Name="Delete3"  Command="{Binding $parent[Window].DataContext.Delete}" CommandParameter="{Binding}" Content="Удалить задачу" HorizontalAlignment="Center" />
+						</Grid>
+					</Expander>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+		</ScrollViewer>
+		<Button Background="#40E0D0" Command="{Binding $parent[Window].DataContext.AddNewPl}" CommandParameter="{Binding}" Grid.Row="3" Grid.Column="0" Name ="Add1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+			<Image Source="/Assets/add.ico"  />
+		</Button>
+		<Button Background="#40E0D0"  Command="{Binding $parent[Window].DataContext.AddNewIn}" CommandParameter="{Binding}" Grid.Row="3" Grid.Column="1" Name ="Add2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+			<Image Source="/Assets/add.ico"  />
+		</Button>
+		<Button Background="#40E0D0"  Command="{Binding $parent[Window].DataContext.AddNewCo}" CommandParameter="{Binding}" Grid.Row="3" Grid.Column="2" Name ="Add3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+			<Image Source="/Assets/add.ico"  />
+		</Button>
+		
+	</Grid>
+
+</Window>
